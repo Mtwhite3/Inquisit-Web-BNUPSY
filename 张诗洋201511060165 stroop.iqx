@@ -1,0 +1,112 @@
+﻿<item instruction>
+	/1 = "屏幕中会出现表示颜色的汉字“蓝”“红”“绿”。如果是蓝，请按b；如果是红，请按r；如果是绿，请按g。"
+</item>
+
+<item any>
+	/1 = "请按任意键开始实验"
+</item>
+
+*********************************************************
+<text instructiontxt>
+	/items = instruction
+	/fontstyle = ("宋体", 4pct)
+	/txbgcolor = (0,0,0)
+	/txcolor = (255,255,255)
+	/size = (1300,800)
+	/hjustify = left
+</text>
+
+<text anykeytxt>
+	/items = any
+	/vposition = 70 pct
+	/fontstyle = ("宋体", 24pt)
+	/txcolor = (255,255,255)
+	/txbgcolor = (transparent)
+</text>
+
+<text fixation>
+	/items = ("+")
+	/fontstyle = ("Arial", 40ptc)
+	/txbgcolor = (transparent)
+	/txcolor = (255,255,255)
+</text>
+
+<text correctmsg>
+	/items = ("√")
+	/fontstyle = ("Arial", 10%)
+	/txbgcolor = (transparent)
+	/txcolor = (0,255,0)
+</text>
+
+<text errormsg>
+	/items = ("×")
+	/fontstyle = ("Arial", 10%)
+	/txbgcolor = (transparent)
+	/txcolor = (255,0,0)
+</text>
+
+<text bluetxt>
+	/items = ("蓝")
+	/fontstyle = ("宋体",60ptc)
+	/txbgcolor = (0,0,0)
+	/txcolor = (255,0,0)
+</text>
+
+<text redtxt>
+	/items = ("红")
+	/fontstyle = ("宋体",60ptc)
+	/txbgcolor = (0,0,0)
+	/txcolor = (0,255,0)
+</text>
+
+<text greentxt>
+	/items = ("绿")
+	/fontstyle = ("宋体",60ptc)
+	/txbgcolor = (0,0,0)
+	/txcolor = (0,0,255)
+</text>
+
+******************************************************
+<trial instruction>
+	/validresponse = (anyresponse)
+	/stimulusframes = [1=instructiontxt,anykeytxt]
+	/recorddata = false
+</trial>
+
+<trial bluetrial>
+	/pretrialpause = 500
+	/validresponse = ("r","g","b")
+	/correctresponse = ("b")
+	/stimulusframes = [1 = bluetxt]
+</trial>
+
+<trial redtrial>
+	/pretrialpause = 500
+	/validresponse = ("r","g","b")
+	/correctresponse = ("r")
+	/stimulusframes = [1 = redtxt]
+</trial>
+
+<trial greentrial>
+	/pretrialpause = 500
+	/validresponse = ("r","g","b")
+	/correctresponse = ("g")
+	/stimulusframes = [1 = greentxt]
+</trial>
+
+******************************************************************
+<block instructionblk>
+	/screencolor = (0,0,0)
+	/trials = [1 = instruction]
+</block>
+
+<block stroopblk>
+	/screencolor = (0,0,0)
+	/blockfeedback = (meanlatency,correct)
+	/trials = [1-12 = noreplace(bluetrial, redtrial,greentrial)]
+</block>
+
+
+<expt>
+	/ blocks = [1 = instructionblk;2 = stroopblk]
+</expt>
